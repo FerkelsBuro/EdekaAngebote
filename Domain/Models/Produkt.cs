@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UI.Models
+namespace Domain.Models
 {
     public class Produkt
     {

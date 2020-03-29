@@ -1,32 +1,26 @@
-﻿using RestSharp;
-using RestSharp.Authenticators;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using Infrastruktur.Clients;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using UI.Models;
 
 namespace UI
 {
     public partial class Form1 : Form
     {
+        private ProduktClient client;
+
         public Form1()
         {
             InitializeComponent();
 
+            client = new ProduktClient();
 
-            var client = new RestClient("https://www.edeka.de");
+            Init();
+        }
 
-            var request = new RestRequest("/eh/service/eh/offers?marketId=8000973&limit=8", DataFormat.Json);
-
-            var response = client.Get<Angebot>(request);
-
-            foreach (var produkt in response.Data.Docs)
+        private void Init()
+        {
+            var angebot = client.GetAngebot();
+            foreach (var produkt in angebot.Docs)
             {
                 var bildBox = new PictureBox();
                 flowLayoutPanel1.Controls.Add(bildBox);
@@ -34,8 +28,6 @@ namespace UI
                 bildBox.Size = new Size(100, 100);
                 bildBox.SizeMode = PictureBoxSizeMode.StretchImage;
             }
-
         }
-
     }
 }
