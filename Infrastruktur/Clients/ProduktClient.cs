@@ -3,7 +3,20 @@ using RestSharp;
 
 namespace Infrastruktur.Clients
 {
-    public class ProduktClient
+    public interface IProduktClient
+    {
+        Angebot GetAngebot();
+    }
+
+    public class FakeProductClient : IProduktClient
+    {
+        public Angebot GetAngebot()
+        {
+            return new Angebot();
+        }
+    }
+
+    public class ProduktClient : IProduktClient
     {
         private readonly RestClient client;
 

@@ -6,20 +6,20 @@ namespace UI
 {
     public partial class Form1 : Form
     {
-        private ProduktClient client;
+        private IProduktClient _client;
 
-        public Form1()
+        public Form1(IProduktClient client)
         {
             InitializeComponent();
 
-            client = new ProduktClient();
+            _client = client;
 
             Init();
         }
 
         private void Init()
         {
-            var angebot = client.GetAngebot();
+            var angebot = _client.GetAngebot();
             foreach (var produkt in angebot.Docs)
             {
                 var bildBox = new PictureBox();
