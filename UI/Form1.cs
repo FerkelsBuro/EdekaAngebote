@@ -26,7 +26,15 @@ namespace UI
 
             var response = client.Get<Angebot>(request);
 
-            pictureBox1.Load(response.Data.Docs.ElementAt(0).BildWeb90.AbsoluteUri);
+            foreach (var produkt in response.Data.Docs)
+            {
+                var bildBox = new PictureBox();
+                flowLayoutPanel1.Controls.Add(bildBox);
+                bildBox.Load(produkt.BildWeb90.AbsoluteUri);
+                bildBox.Size = new Size(100, 100);
+                bildBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            }
+
         }
 
     }
