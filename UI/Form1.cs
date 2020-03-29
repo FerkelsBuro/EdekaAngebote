@@ -1,6 +1,6 @@
 ﻿using Infrastruktur.Clients;
-using System.Drawing;
 using System.Windows.Forms;
+using UI.ViewModels;
 
 namespace UI
 {
@@ -22,11 +22,10 @@ namespace UI
             var angebot = _client.GetAngebot();
             foreach (var produkt in angebot.Docs)
             {
-                var bildBox = new PictureBox();
-                flowLayoutPanel1.Controls.Add(bildBox);
-                bildBox.Load(produkt.BildWeb90.AbsoluteUri);
-                bildBox.Size = new Size(100, 100);
-                bildBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                var viewModel = new AngebotControlViewModel(produkt);
+                var angebotControl = new AngebotControl(viewModel);
+
+                flowLayoutPanel1.Controls.Add(angebotControl);
             }
         }
     }
